@@ -1,0 +1,94 @@
+#include <iostream>
+using namespace std;
+
+#define MAX 1000 
+
+class Stack {
+    int top;
+
+public:
+    int arr[MAX]; 
+
+    Stack() { top = -1; }
+
+    bool push(int x) {
+        if (top >= (MAX - 1)) {
+            cout << "Stack Overflow\n";
+            return false;
+        } else {
+            arr[++top] = x;
+            return true;
+        }
+    }
+
+    int pop() {
+        if (top < 0) {
+            cout << "Stack Underflow\n";
+            return 0;
+        } else {
+            int x = arr[top--];
+            return x;
+        }
+    }
+
+    int peek() {
+        if (top < 0) {
+            cout << "Stack is Empty\n";
+            return 0;
+        } else {
+            return arr[top];
+        }
+    }
+
+    bool isEmpty() {
+        return (top < 0);
+    }
+};
+
+int main() {
+    Stack stack;
+    int n, value, operation;
+
+    cout << "How many operations do you want to perform on the stack? ";
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nChoose operation for step " << i + 1 << ":\n";
+        cout << "1. Push\n";
+        cout << "2. Pop\n";
+        cout << "3. Peek (Top element)\n";
+        cout << "4. Check if Empty\n";
+        cout << "Enter your choice (1-4): ";
+        cin >> operation;
+
+        switch (operation) {
+            case 1:
+                cout << "Enter value to push: ";
+                cin >> value;
+                if (stack.push(value)) {
+                    cout << value << " pushed into stack\n";
+                }
+                break;
+            case 2:
+                value = stack.pop();
+                if (value != 0)
+                    cout << value << " popped from stack\n";
+                break;
+            case 3:
+                value = stack.peek();
+                if (value != 0)
+                    cout << "Top element is " << value << endl;
+                break;
+            case 4:
+                cout << "Stack empty: " << (stack.isEmpty() ? "Yes" : "No") << endl;
+                break;
+            default:
+                cout << "Invalid operation! Please enter a number between 1 and 4.\n";
+                break;
+        }
+    }
+
+    cout << "\nAll operations completed.\n";
+
+    return 0;
+}
